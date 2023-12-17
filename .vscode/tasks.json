@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "make: all",
+			"command": "make",
+			"args": [
+				"all"
+			],
+			"problemMatcher": {
+				"owner": "oscar64",
+				"fileLocation": "absolute",
+				"pattern": {
+					"regexp": "^(.*)\\((\\d+), (\\d+)\\) : (\\w+).\\d+: (.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"message": 5
+				}
+			},
+			"group": "build",
+		}
+	]
+}

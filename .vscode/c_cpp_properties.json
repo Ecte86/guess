@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "Oscar64",
+            "includePath": [
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                ""
+            ],
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x86",
+            "browse": {
+                "path": []
+            },
+            "configurationProvider": "ms-vscode.makefile-tools",
+            "forcedInclude": [],
+            "compilerArgs": [
+                "-nostdinc",
+                "-isystem/home/ecte/opt/oscar64/include",
+                "-isystem/home/ecte/opt/oscar64/include/gfx",
+                "-isystem/home/ecte/opt/oscar64/include/c64",
+                "-isystem/home/ecte/opt/oscar64/include/audio"
+            ]
+        }
+    ],
+    "version": 4
+}
