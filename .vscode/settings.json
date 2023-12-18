@@ -4,6 +4,8 @@
         "stdlib.h": "c",
         "string.h": "c",
         "main.h": "c",
-        "conio.h": "c"
+        "conio.h": "c",
+        "stddef.h": "c",
+        "stdbool.h": "c"
     }
 }

@@ -1,7 +1,8 @@
 #include "../include/main.h"
 
-#include <stdio.h>
 #include <conio.h>
+#include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,28 +13,77 @@ int main() {
     game.guess = -1;
     game.tries = 0;
     game.max_tries = 10;
+    game.state = MAIN_MENU;
+    bool valid = false;
 
-    MainMenuChoice main_menu_choice = mainMenu();
-    while (main_menu_choice == 0) {
-        switch (main_menu_choice) {
+    char *errMessage = mainLoop(&game);
+    return 0;
+}
+
+MainMenuChoice processMainMenu(MainMenuChoice choice) {
+    while (choice == 0) {
+        switch (choice) {
             case PLAY:
-                play(&game);
-                break;
+                return PLAY;
             case DIFFICULTY:
-                difficultyMenu(&game);
-                break;
+                return DIFFICULTY;
             case QUIT:
-                printf("Goodbye!\n");
-                break;
+                exit(0);
             default:
                 printf("Invalid choice!\n");
-                main_menu_choice = 0;
-                break;
+                choice = 0;
         }
     }
+    return choice;
+}
 
-    if (main_menu_choice != QUIT) {
-        main();
+DifficultyChoice processDifficultyMenu(DifficultyChoice choice) {
+    while (choice == 0) {
+        switch (choice) {
+            case EASY:
+                return EASY;
+            case MEDIUM:
+                return MEDIUM;
+            case HARD:
+                return HARD;
+            default:
+                printf("Invalid choice!\n");
+                choice = 0;
+        }
+    }
+    return choice;
+}
+
+char *mainLoop(Game *game) {
+    MainMenuChoice mainMenuChoice;
+    while (true) {
+        switch (game->state) {
+            case MAIN_MENU:
+                mainMenuChoice = processMainMenu(mainMenu());
+                switch (mainMenuChoice) {
+                    case PLAY:
+                        game->state = PLAYING;
+                        break;
+                    case DIFFICULTY:
+                        game->state = DIFFICULTY_MENU;
+                        break;
+                    case QUIT:
+                        exit(0);
+                    default:
+                        return "Invalid main menu choice!";
+                }
+                break;
+            case DIFFICULTY_MENU:
+                processDifficultyMenu(difficultyMenu(game));
+                
+                break;
+            case PLAYING:
+                play(game);
+                game->state = MAIN_MENU;
+                break;
+            default:
+                return "Invalid game state!";
+        }
     }
 }
 
@@ -49,7 +99,7 @@ MainMenuChoice mainMenu() {
 }
 
 DifficultyChoice difficultyMenu(Game *game) {
-    int choice;
+    int choice = 0;
     while (choice == 0) {
         printf("1. Easy\n");
         printf("2. Medium\n");

@@ -1,11 +1,18 @@
 #ifndef MAIN
 #define MAIN
 
-typedef struct {
+typedef enum GameState_e {
+    MAIN_MENU,
+    DIFFICULTY_MENU,
+    PLAYING,
+} GameState;
+
+typedef struct game_s {
     int secret;
     int guess;
     int tries;
     int max_tries;
+    GameState state;
 } Game;
 
 typedef enum difficultyChoice_e {
@@ -20,6 +27,7 @@ typedef enum mainMenuChoice_e {
     QUIT
 } MainMenuChoice;
 
+char *mainLoop(Game *game);
 MainMenuChoice mainMenu();
 DifficultyChoice difficultyMenu(Game *game);
 void play(Game *game);
